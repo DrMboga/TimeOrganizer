@@ -21,7 +21,7 @@ jobs:
           build_configuration: production
           base_href: TimeOrganizer
           deploy_branch: gh-pages
-          angular_dist_build_folder: dist/time-organiser
+          angular_dist_build_folder: dist/TimeOrganizer
 
 permissions:
   contents: write # Allow write permission to GITHUB_TOKEN to commit to deploy branch.
