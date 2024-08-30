@@ -1,1 +1,7 @@
-<h1>moco works!</h1>
+<h2>Moco app timings</h2>
+@if(mocoSettings()?.mocoAppBaseAddress && mocoSettings()?.apiKey) {
+  <p>Moco section</p>
+} @else {
+  <app-moco-settings></app-moco-settings>
+}
+

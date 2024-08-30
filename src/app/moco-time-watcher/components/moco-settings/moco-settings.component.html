@@ -1,0 +1,9 @@
+<mat-form-field>
+  <mat-label>Moco base address</mat-label>
+  <input matInput [(ngModel)]="mocoAppBaseAddress">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Moco API key</mat-label>
+  <input matInput [(ngModel)]="mocoAppToken">
+</mat-form-field>
+<button mat-flat-button (click)="save()">Save</button>
