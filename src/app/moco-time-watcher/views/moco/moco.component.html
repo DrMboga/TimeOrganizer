@@ -1,6 +1,15 @@
 <h2>Moco app timings</h2>
-@if(mocoSettings()?.mocoAppBaseAddress && mocoSettings()?.apiKey) {
-  <p>Moco section</p>
+@if (mocoSettings()?.mocoAppBaseAddress && mocoSettings()?.apiKey) {
+  @if (mocoActivities()) {
+    @for (activity of mocoActivities(); track activity.id) {
+      <div>
+        {{ activity.customer?.name ?? 'unknown customer' }} | {{ activity.project?.name ?? 'unknown project' }}
+        @if (activity.timer_started_at) {
+          | *
+        }
+      </div>
+    }
+  }
 } @else {
   <app-moco-settings></app-moco-settings>
 }
