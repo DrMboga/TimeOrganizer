@@ -14,10 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Restore dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
       - name: All things angular
         uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.4.0
         with:
