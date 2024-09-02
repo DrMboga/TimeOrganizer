@@ -1,6 +1,7 @@
 <h2>Moco app timings</h2>
 @if (mocoSettings()?.mocoAppBaseAddress && mocoSettings()?.apiKey) {
   @if (mocoActivities()) {
+    {{ sumWorkTimeInSeconds() }}
     @for (activity of mocoActivities(); track activity.id) {
       <div>
         {{ activity.customer?.name ?? 'unknown customer' }} | {{ activity.project?.name ?? 'unknown project' }}

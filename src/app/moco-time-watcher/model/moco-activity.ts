@@ -7,8 +7,8 @@ export interface MocoActivity {
   date: string;
   hours: number;
   description?: string;
-  billed: boolean;
-  billable: boolean;
+  billed?: boolean;
+  billable?: boolean;
   invoice_id?: number;
   tag?: string;
   remote_service?: string;
@@ -21,6 +21,6 @@ export interface MocoActivity {
   timer_started_at?: Date;
   created_at: Date;
   updated_at: Date;
-  hourly_rate: number;
+  hourly_rate?: number;
   seconds: number;
 }

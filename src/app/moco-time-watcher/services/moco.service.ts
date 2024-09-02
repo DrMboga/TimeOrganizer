@@ -4,13 +4,12 @@ import { MocoPersistenceService } from './moco-persistence.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IMocoService } from './moco.service.interface';
 
 const ACTIVITIES_ROUTE = '/api/v1/activities';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class MocoService {
+@Injectable()
+export class MocoService implements IMocoService {
   /*
    * Triggers new data request
    */
