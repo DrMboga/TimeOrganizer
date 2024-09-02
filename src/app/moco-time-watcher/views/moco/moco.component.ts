@@ -1,4 +1,4 @@
-import { Component, computed, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { Component, computed, effect, OnDestroy, OnInit, Signal, signal } from '@angular/core';
 import { MocoPersistenceService } from '../../services/moco-persistence.service';
 import { MocoService } from '../../services/moco.service';
 import { MocoSettingsComponent } from '../../components/moco-settings/moco-settings.component';
@@ -113,7 +113,23 @@ export class MocoComponent implements OnInit, OnDestroy {
   constructor(
     private mocoPersistenceService: MocoPersistenceService,
     private mocoService: MocoService,
-  ) {}
+  ) {
+    effect(
+      () => {
+        if (this.startedTaskTime()) {
+          this.updateTimes();
+          // If there is a task which is currently running, we need to start a time to recalculate worked time and time left in real time
+          const needToStartTimer = this.startedTaskTime() !== undefined;
+          if (needToStartTimer) {
+            this.timer = setInterval(() => {
+              this.onTimerTick();
+            }, TimerPeriod);
+          }
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
 
   ngOnInit(): void {
     this.refreshData();
@@ -127,14 +143,6 @@ export class MocoComponent implements OnInit, OnDestroy {
 
   public refreshData() {
     this.mocoService.pullActivities.set(new Date());
-    this.updateTimes();
-    // If there is a task which is currently running, we need to start a time to recalculate worked time and time left in real time
-    const needToStartTimer = this.startedTaskTime() !== undefined;
-    if (needToStartTimer) {
-      this.timer = setInterval(() => {
-        this.onTimerTick();
-      }, TimerPeriod);
-    }
   }
 
   private onTimerTick() {
