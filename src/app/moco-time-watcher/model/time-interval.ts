@@ -5,4 +5,5 @@ export interface TimeInterval {
   isWorkingTime: boolean;
   durationInSeconds: number;
   description: string;
+  durationInPercent: number;
 }
