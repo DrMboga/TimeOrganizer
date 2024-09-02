@@ -5,6 +5,7 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IMocoService } from './moco.service.interface';
+import { format } from 'date-fns';
 
 const ACTIVITIES_ROUTE = '/api/v1/activities';
 
@@ -26,7 +27,7 @@ export class MocoService implements IMocoService {
       ) {
         return of(undefined);
       }
-      const dateParameter = date.toISOString().split('T')[0]; //`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      const dateParameter = format(date, 'yyyy-MM-dd');
       const request = `${
         this.settings.mocoSettings()?.mocoAppBaseAddress
       }${ACTIVITIES_ROUTE}?from=${dateParameter}&to=${dateParameter}`;

@@ -1,15 +1,18 @@
 <h2>Moco app timings</h2>
 @if (mocoSettings()?.mocoAppBaseAddress && mocoSettings()?.apiKey) {
-  @if (mocoActivities()) {
-    {{ sumWorkTimeInSeconds() }}
-    @for (activity of mocoActivities(); track activity.id) {
-      <div>
-        {{ activity.customer?.name ?? 'unknown customer' }} | {{ activity.project?.name ?? 'unknown project' }}
-        @if (activity.timer_started_at) {
-          | *
-        }
-      </div>
-    }
+  @if (intervals()) {
+    <p>Current: {{ totalWorkToday() | toTime }}</p>
+    <p>Left: {{ timeLeft() | toTime }}</p>
+    <p>When: {{ whenStop() }}</p>
+    <div >
+      @for(interval of intervals(); track interval.startTime) {
+        <p>{{interval.startTime}} - {{interval.endTime}} | {{interval.description}}
+          @if (interval.isRunning) {
+            | *
+          }
+          </p>
+      }
+    </div>
   }
 } @else {
   <app-moco-settings></app-moco-settings>
