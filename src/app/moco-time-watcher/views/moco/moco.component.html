@@ -21,6 +21,26 @@
       </div>
     </div>
 
+    @if (pauseTime() > 0) {
+      <div class="task-row">
+        <div class="task-labels">
+          <div style="width: 90%">
+            Pause
+            | {{ pauseTime() | toTime }}
+          </div>
+        </div>
+        <div class="auto-center">
+          <mat-progress-bar
+            style="width: 90%"
+            color="warn"
+            mode="determinate"
+            [value]="pauseTimePercent()"
+          >
+          </mat-progress-bar>
+        </div>
+      </div>
+    }
+
     @for (interval of intervals(); track interval.startTime) {
       <div class="task-row">
         <div class="task-labels">
@@ -38,26 +58,6 @@
             color="primary"
             mode="determinate"
             [value]="interval.durationInPercent"
-          >
-          </mat-progress-bar>
-        </div>
-      </div>
-    }
-
-    @if (pauseTime() > 0) {
-      <div class="task-row">
-        <div class="task-labels">
-          <div style="width: 90%">
-            Pause
-            | {{ pauseTime() | toTime }}
-          </div>
-        </div>
-        <div class="auto-center">
-          <mat-progress-bar
-            style="width: 90%"
-            color="primary"
-            mode="determinate"
-            [value]="pauseTimePercent()"
           >
           </mat-progress-bar>
         </div>

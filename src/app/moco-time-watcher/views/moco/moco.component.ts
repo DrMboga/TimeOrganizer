@@ -93,8 +93,8 @@ export class MocoComponent implements OnInit, OnDestroy {
     const stop = add(new Date(), { seconds: this.timeLeft() });
     const diff = differenceInSeconds(stop, start);
     console.log('diff', diff);
-    if (diff > 0) {
-      return dailyWorkingHours * 60 * 60 - diff;
+    if (diff > dailyWorkingHours * 60 * 60) {
+      return diff - dailyWorkingHours * 60 * 60;
     }
     return 0;
   });
@@ -107,9 +107,7 @@ export class MocoComponent implements OnInit, OnDestroy {
    * Time intervals.
    */
   public intervals: Signal<TimeInterval[]> = computed(() => {
-    const activities = this.mocoActivities();
     const currentDuration = this.currentTaskDurationSeconds();
-    const startedTaskTime = this.startedTaskTime();
 
     return (
       this.mocoActivities()?.map((a) => {
